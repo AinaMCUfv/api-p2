@@ -1,0 +1,63 @@
+[
+    {
+        "id": "1",
+        "tipo": "portatil",
+        "marca": "HP",
+        "usoEquipo": "Comercial",
+        "nombreSO": "Windows 10",
+        "versionS0": "",
+        "procesador": "intel core i5",
+        "atriveloc": "",
+        "tipoDD": "",
+        "capacidad": "255gb",
+        "diagonal": "34cm",
+        "resolucion": "1900 x 1200",
+        "nombreLP": "",
+        "versionLP": "",
+        "tipoLP": "",
+        "nombreLL": "",
+        "versionLL": ""
+
+    },
+    {
+        "id": "1",
+        "tipo": "portatil",
+        "marca": "Lenovo",
+        "usoEquipo": "desarrollo",
+        "nombreSO": "Windows 10 Pro 64",
+        "versionS0": "",
+        "procesador": "intel core i7",
+        "atriveloc": "",
+        "tipoDD": "",
+        "capacidad": "1 TB",
+        "diagonal": "35,36cm",
+        "resolucion": "1920 x 1200",
+        "nombreLP": "",
+        "versionLP": "",
+        "tipoLP": "",
+        "nombreLL": "",
+        "versionLL": ""
+
+    },
+    {
+        "id": "3",
+        "tipo": "Fijo",
+        "marca": "Asus",
+        "usoEquipo": "Desarrollo",
+        "nombreSO": "Windows 10 PRO",
+        "versionS0": "",
+        "procesador": "intel core i9",
+        "atriveloc": "",
+        "tipoDD": "",
+        "capacidad": "2TB",
+        "diagonal": "16cm",
+        "resolucion": "1900 x 1200",
+        "nombreLP": "",
+        "versionLP": "",
+        "tipoLP": "",
+        "nombreLL": "",
+        "versionLL": ""
+
+    }
+]
+          
