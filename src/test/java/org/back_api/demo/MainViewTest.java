@@ -39,9 +39,9 @@ public class MainViewTest{
     @Before
     public void setUp() throws Exception {
         List<Usuario> ListaNueva = new ArrayList<Usuario>();
-        leerJSON("usuarios.json");
-        leerJSON("Equipo.json");
-        leerJSON("prestamos.json");
+        leerJSON("usuario.json");
+        leerJSON("equipo.json");
+        leerJSON("prestamo.json");
     }
 
     @Test
@@ -212,13 +212,13 @@ public class MainViewTest{
             // convert JSON file to map
             //Videoteca v = gson.fromJson(reader, Videoteca.class);
             Type tipoLista = new TypeToken<List<Usuario>>(){}.getType();
-            if(leerJSON.equals("usuarios.json")){
+            if(leerJSON.equals("usuario.json")){
                 listaUsuarios = gson.fromJson(reader, tipoLista);
                 System.out.println(listaUsuarios);
-            }else if(leerJSON.equals("prestamos.json")){
+            }else if(leerJSON.equals("prestamo.json")){
                 listaPrestamos = gson.fromJson(reader, tipoLista);
                 System.out.println(listaPrestamos);
-            }else if(leerJSON.equals("Equipo.json")){
+            }else if(leerJSON.equals("equipo.json")){
                 listaEquipo = gson.fromJson(reader, tipoLista);
                 System.out.println(listaEquipo);
             }
