@@ -14,7 +14,7 @@
     <name>APIRest</name>
     <description>P2 APIRest</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <repositories>
         <!-- The order of definitions matters. Explicitly defining central here to make sure it has the highest priority. -->

@@ -2,14 +2,22 @@ package org.back_api.demo;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.junit.After;
+import org.apache.http.util.EntityUtils;
+import org.back_api.demo.Equipo;
+import org.back_api.demo.Prestamo;
+import org.back_api.demo.Usuario;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -20,169 +28,209 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+public class MainViewTest{
 
-public class MainViewTest {
 
     private ArrayList<Equipo> listaEquipo = new ArrayList<Equipo>();
     private ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+    private ArrayList<Prestamo> listaPrestamos = new ArrayList<Prestamo>();
 
 
     @Before
     public void setUp() throws Exception {
         List<Usuario> ListaNueva = new ArrayList<Usuario>();
-        leerJSON("Usuarios.json");
-        leerJSONEquipos("Equipos.json");
-        leerJSON("Prestamos.json");
-
-
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
+        leerJSON("usuarios.json");
+        leerJSON("Equipo.json");
+        leerJSON("prestamos.json");
     }
 
     @Test
-    public void actualizarUsuarioAPI() {
+    public void leerUsuariosAPI() {
+        try{
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpGet request = new HttpGet("http://localhost:8081/user");
+
+
+            try (CloseableHttpResponse response = httpClient.execute(request)) {
+
+                // Get HttpResponse Status
+                System.out.println(response.getStatusLine().toString());
+
+                HttpEntity entity = response.getEntity();
+                Header headers = entity.getContentType();
+                System.out.println(headers);
+
+                if (entity != null) {
+                    // return it as a String
+                    String result = EntityUtils.toString(entity);
+                    System.out.println(result);
+
+                    Gson gson = new Gson();
+                    Type tipoLista = new TypeToken<List<Usuario>>() {}.getType();
+                    ArrayList<Usuario> aux = gson.fromJson(result, tipoLista);
+
+                    //chequear que los usuarios de aux son los mismos de listaUsuarios
+                    assertTrue("Lista de usuarios correcta", aux.size() == listaUsuarios.size());
+
+
+
+                }
+            }catch (Exception e){
+
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+
+    @Test
+    public void leerPrestamosAPI() {
+        try{
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpGet request = new HttpGet("http://localhost:8081/prestamo");
+
+
+            try (CloseableHttpResponse response = httpClient.execute(request)) {
+
+                // Get HttpResponse Status
+                System.out.println(response.getStatusLine().toString());
+
+                HttpEntity entity = response.getEntity();
+                Header headers = entity.getContentType();
+                System.out.println(headers);
+
+                if (entity != null) {
+                    // return it as a String
+                    String result = EntityUtils.toString(entity);
+                    System.out.println(result);
+
+                    Gson gson = new Gson();
+                    Type tipoLista = new TypeToken<List<Prestamo>>() {}.getType();
+                    ArrayList<Prestamo> aux = gson.fromJson(result, tipoLista);
+
+                    //chequear que los usuarios de aux son los mismos de listaUsuarios
+                    assertTrue("Lista de usuarios correcta", aux.size() == listaPrestamos.size());
+                }
+            }catch (Exception e){
+
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+    @Test
+    public void leerEquipoAPI() {
+        try{
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpGet request = new HttpGet("http://localhost:8081/equipo");
+
+
+            try (CloseableHttpResponse response = httpClient.execute(request)) {
+
+                // Get HttpResponse Status
+                System.out.println(response.getStatusLine().toString());
+
+                HttpEntity entity = response.getEntity();
+                Header headers = entity.getContentType();
+                System.out.println(headers);
+
+                if (entity != null) {
+                    // return it as a String
+                    String result = EntityUtils.toString(entity);
+                    System.out.println(result);
+
+                    Gson gson = new Gson();
+                    Type tipoLista = new TypeToken<List<Equipo>>() {}.getType();
+                    ArrayList<Equipo> aux = gson.fromJson(result, tipoLista);
+
+                    //chequear que los usuarios de aux son los mismos de listaUsuarios
+                    assertTrue("Lista de Equipo correcta", aux.size() == listaEquipo.size());
+                }
+            }catch (Exception e){
+
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+
+    @Test
+    public void guardarUsuarioAPI(){
+        Usuario u = new Usuario(77,"pepe","midep","124","aaa@gmail.com","madrid");
+        listaUsuarios.add(u);
+
+        //guardo en remoto
         CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost request = new HttpPost("http://localhost:8081/user");
+        request.setHeader("Content-Type", "application/json");
+
         Gson gson = new Gson();
+        try{
+            HttpEntity entity = new ByteArrayEntity(gson.toJson(u).getBytes("UTF-8"));
+            request.setEntity(entity);
 
-    }
+            CloseableHttpResponse response = httpClient.execute(request);
 
-    @Test
-    public void guardarUsuarioAPI() {
-        Gson gson = new Gson();
-        HttpGet enlace = new HttpGet("http://localhost:8081/user");
-        HttpGet llamada = enlace;
-        boolean correcto = new Boolean(Boolean.TRUE);
-        boolean error = new Boolean(Boolean.FALSE);
+            // Get HttpResponse Status
+            System.out.println(response.getStatusLine().toString());
 
+            entity = response.getEntity();
+            Header headers = entity.getContentType();
+            System.out.println(headers);
 
-        if (llamada == enlace)
-        {
-            assertTrue("Puerto usado correctamente", true);
+            if (entity != null) {
+                // return it as a String
+                String result = EntityUtils.toString(entity);
+                System.out.println(result);
+
+                Type tipoLista = new TypeToken<List<Usuario>>(){}.getType();
+                //listaPersonajes = gson.fromJson(result, tipoLista);
+            }
+
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
-        if (llamada != enlace)
-        {
-            assertFalse("Puerto no conectado", false);
-        }
-
-        if (correcto){
-            assertTrue("Fichero Json leido correctamente",true );
-        }
-        if (error){
-            assertFalse("Fichero Json leido incorrectamente", false);
-        }
-
-    }
-
-    @Test
-    public void llamarBorrarAPI() {
-        Gson gson = new Gson();
-        HttpGet enlace = new HttpGet("http://localhost:8081/user");
-        HttpGet llamada = enlace;
-        boolean correcto = new Boolean(Boolean.TRUE);
-        boolean error = new Boolean(Boolean.FALSE);
-
-
-        if (llamada == enlace)
-        {
-            assertTrue("Puerto usado correctamente", true);
-        }
-
-
-        if (llamada != enlace)
-        {
-            assertFalse("Puerto no conectado", false);
-        }
-
-        if (correcto){
-            assertTrue("Fichero Json leido correctamente",true );
-        }
-        if (error){
-            assertFalse("Fichero Json leido incorrectamente", false);
-        }
-
+        leerUsuariosAPI();
     }
 
 
+    private void leerJSON(String leerJSON) {
+        try {
+            // create Gson instance
+            Gson gson = new Gson();
 
-    @Test
-    public void leerDatosAPI() {
-        Gson gson = new Gson();
-        HttpGet enlace = new HttpGet("http://localhost:8081/user");
-        HttpGet llamada = enlace;
-        boolean correcto = new Boolean(Boolean.TRUE);
-        boolean error = new Boolean(Boolean.FALSE);
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get(leerJSON));
+
+            // convert JSON file to map
+            //Videoteca v = gson.fromJson(reader, Videoteca.class);
+            Type tipoLista = new TypeToken<List<Usuario>>(){}.getType();
+            if(leerJSON.equals("usuarios.json")){
+                listaUsuarios = gson.fromJson(reader, tipoLista);
+                System.out.println(listaUsuarios);
+            }else if(leerJSON.equals("prestamos.json")){
+                listaPrestamos = gson.fromJson(reader, tipoLista);
+                System.out.println(listaPrestamos);
+            }else if(leerJSON.equals("Equipo.json")){
+                listaEquipo = gson.fromJson(reader, tipoLista);
+                System.out.println(listaEquipo);
+            }
 
 
-        if (llamada == enlace)
-        {
-            assertTrue("Puerto usado correctamente", true);
+
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
-
-        if (llamada != enlace)
-        {
-            assertFalse("Puerto no conectado", false);
-        }
-
-        if (correcto){
-            assertTrue("Fichero Json leido correctamente",true );
-        }
-        if (error){
-            assertFalse("Fichero Json leido incorrectamente", false);
-        }
-
-    }
-
-    @Test
-    public void leerJSON(String leerJSON) throws IOException {
-        Gson gson = new Gson();
-        boolean correcto = new Boolean(Boolean.TRUE);
-        boolean error = new Boolean(Boolean.FALSE);
-
-        Reader reader = Files.newBufferedReader(Paths.get(leerJSON));
-        Type tipoLista = new TypeToken<List<Equipo>>(){}.getType();
-        listaUsuarios = gson.fromJson(reader,tipoLista);
-
-        if (correcto){
-            assertTrue("Fichero Json leido correctamente",true );
-        }
-        if (error){
-            assertFalse("Fichero Json leido incorrectamente", false);
-        }
-    }
-
-    @Test
-    public void leerJSONEquipos(String leerJSONEquipos) throws IOException {
-        Gson gson = new Gson();
-        boolean correcto = new Boolean(Boolean.TRUE);
-        boolean error = new Boolean(Boolean.FALSE);
-
-
-        Reader reader = Files.newBufferedReader(Paths.get(leerJSONEquipos));
-        Type tipoLista = new TypeToken<List<Equipo>>(){}.getType();
-        listaEquipo = gson.fromJson(reader,tipoLista);
-
-
-        if (correcto){
-            assertTrue("Fichero Json leido correctamente",true );
-        }
-        if (error){
-            assertFalse("Fichero Json leido incorrectamente", false);
-        }
-
-
-    }
-
-    @Test
-    public void getListaUsuarios() {
-    }
-
-    @Test
-    public void getListaEquipos() {
     }
 }
