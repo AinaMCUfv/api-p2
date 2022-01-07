@@ -28,9 +28,9 @@ public class ApiRestApplication {
     public static void main(String[] args) {
         SpringApplication.run(ApiRestApplication.class, args);
 
-        leerJSON("usuarios.json");
-        leerJSONEquipo("equipos.json");
-        leerJSONPrestamo("prestamos.json");
+        leerJSON("Usuario.json");
+        leerJSONEquipo("Equipo.json");
+        leerJSONPrestamo("Prestamo.json");
 
     }
 
@@ -142,7 +142,7 @@ public class ApiRestApplication {
     private static void guardarJSON(){
         try {
             Gson gson = new Gson();
-            FileWriter fw = new FileWriter("usuarios.json");
+            FileWriter fw = new FileWriter("Usuario.json");
             gson.toJson(mListaUsuarios,fw);
             fw.close();
         } catch (IOException e) {
@@ -176,7 +176,7 @@ public class ApiRestApplication {
     private static void guardarJSONPrestamos(){
         try {
             Gson gson = new Gson();
-            FileWriter fw = new FileWriter("prestamos.json");
+            FileWriter fw = new FileWriter("Prestamo.json");
             gson.toJson(mListaPrestamos,fw);
             fw.close();
         } catch (IOException e) {
