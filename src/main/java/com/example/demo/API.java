@@ -1,10 +1,4 @@
-package org.back_api.demo;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.*;
+package com.example.demo;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,27 +9,33 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import com.google.gson.reflect.TypeToken;
 
+import com.google.gson.Gson;
 
-@SpringBootApplication
 @RestController
-public class ApiRestApplication {
-
-    private static ArrayList<Usuario> mListaUsuarios = new ArrayList<Usuario>();
+public class API {
+	
+	private static ArrayList<Usuario> mListaUsuarios = new ArrayList<Usuario>();
     private static ArrayList<Prestamo> mListaPrestamos = new ArrayList<Prestamo>();
     private static ArrayList<Equipo> mListaEquipos = new ArrayList<Equipo>();
 
-    public static void main(String[] args) {
-        SpringApplication.run(ApiRestApplication.class, args);
-
-        leerJSON("Usuario.json");
-        leerJSONEquipo("Equipo.json");
-        leerJSONPrestamo("Prestamo.json");
-
+    @GetMapping("/load")
+    public String load(){
+    	 leerJSON("Usuario.json");
+         leerJSONEquipo("Equipo.json");
+         leerJSONPrestamo("Prestamo.json");
+        return "load ok";
     }
-
-
-
+    
+    
     @GetMapping("/user/{id}")
     public String getUserById(@PathVariable int id){
         Gson gson = new Gson();

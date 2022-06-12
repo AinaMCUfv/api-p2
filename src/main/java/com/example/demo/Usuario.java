@@ -1,4 +1,4 @@
-package org.back_api.demo;
+package com.example.demo;
 
 public class Usuario {
     private int id;
