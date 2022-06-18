@@ -226,16 +226,19 @@ class ApiApplicationTests {
 
 	            // convert JSON file to map
 	            //Videoteca v = gson.fromJson(reader, Videoteca.class);
-	            Type tipoLista = new TypeToken<List<Usuario>>(){}.getType();
+	            
 	            if(leerJSON.equals("Usuario.json") && listaUsuarios.size() == 0){
+	            	Type tipoLista = new TypeToken<List<Usuario>>(){}.getType();
 	                listaUsuarios = gson.fromJson(reader, tipoLista);
 	                System.out.println("Leido fichero usuarios");
 	                System.out.println(listaUsuarios);
 	            }else if(leerJSON.equals("Prestamo.json")  && listaPrestamos.size() == 0){
+	            	Type tipoLista = new TypeToken<List<Prestamo>>(){}.getType();
 	                listaPrestamos = gson.fromJson(reader, tipoLista);
 	                System.out.println("Leido fichero prestamos");
 	                System.out.println(listaPrestamos);
 	            }else if(leerJSON.equals("Equipo.json")  && listaEquipo.size() == 0){
+	            	Type tipoLista = new TypeToken<List<Equipo>>(){}.getType();
 	                listaEquipo = gson.fromJson(reader, tipoLista);
 	                System.out.println("Leido fichero equipos");
 	                System.out.println(listaEquipo);
