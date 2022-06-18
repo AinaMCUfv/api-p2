@@ -44,7 +44,7 @@ class ApiApplicationTests {
 
 	    @Test
 	    public void leerUsuariosAPI() {
-	    	
+	    	System.out.println("Iniciando test: leerUsuariosAPI");
 	        try{
         		setUp();	
 	            CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -63,6 +63,7 @@ class ApiApplicationTests {
 	                if (entity != null) {
 	                    // return it as a String
 	                    String result = EntityUtils.toString(entity);
+	                    System.out.println("lista usuarios api");
 	                    System.out.println(result);
 
 	                    Gson gson = new Gson();
@@ -87,6 +88,7 @@ class ApiApplicationTests {
 
 	    @Test
 	    public void leerPrestamosAPI() {
+	    	System.out.println("Iniciando test: leerPrestamosAPI");
 	        try{
 	        	setUp();
 	            CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -105,6 +107,7 @@ class ApiApplicationTests {
 	                if (entity != null) {
 	                    // return it as a String
 	                    String result = EntityUtils.toString(entity);
+	                    System.out.println("lista prestamos api");
 	                    System.out.println(result);
 
 	                    Gson gson = new Gson();
@@ -125,7 +128,7 @@ class ApiApplicationTests {
 
 	    @Test
 	    public void leerEquipoAPI() {
-	    	
+	    	System.out.println("Iniciando test: leerEquipoAPI");
 	        try{
 	        	setUp();
 	            CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -144,6 +147,7 @@ class ApiApplicationTests {
 	                if (entity != null) {
 	                    // return it as a String
 	                    String result = EntityUtils.toString(entity);
+	                    System.out.println("lista equipos api");
 	                    System.out.println(result);
 
 	                    Gson gson = new Gson();
@@ -225,12 +229,15 @@ class ApiApplicationTests {
 	            Type tipoLista = new TypeToken<List<Usuario>>(){}.getType();
 	            if(leerJSON.equals("Usuario.json") && listaUsuarios.size() == 0){
 	                listaUsuarios = gson.fromJson(reader, tipoLista);
+	                System.out.println("Leido fichero usuarios");
 	                System.out.println(listaUsuarios);
 	            }else if(leerJSON.equals("Prestamo.json")  && listaPrestamos.size() == 0){
 	                listaPrestamos = gson.fromJson(reader, tipoLista);
+	                System.out.println("Leido fichero prestamos");
 	                System.out.println(listaPrestamos);
 	            }else if(leerJSON.equals("Equipo.json")  && listaEquipo.size() == 0){
 	                listaEquipo = gson.fromJson(reader, tipoLista);
+	                System.out.println("Leido fichero equipos");
 	                System.out.println(listaEquipo);
 	            }
 
