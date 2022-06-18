@@ -224,15 +224,12 @@ class ApiApplicationTests {
 	            //Videoteca v = gson.fromJson(reader, Videoteca.class);
 	            Type tipoLista = new TypeToken<List<Usuario>>(){}.getType();
 	            if(leerJSON.equals("Usuario.json") && listaUsuarios.size() == 0){
-	            	listaUsuarios = new ArrayList<Usuario>();
 	                listaUsuarios = gson.fromJson(reader, tipoLista);
 	                System.out.println(listaUsuarios);
 	            }else if(leerJSON.equals("Prestamo.json")  && listaPrestamos.size() == 0){
-	            	listaPrestamos = new ArrayList<Prestamo>();
 	                listaPrestamos = gson.fromJson(reader, tipoLista);
 	                System.out.println(listaPrestamos);
 	            }else if(leerJSON.equals("Equipo.json")  && listaEquipo.size() == 0){
-	            	listaEquipo = new ArrayList<Equipo>();
 	                listaEquipo = gson.fromJson(reader, tipoLista);
 	                System.out.println(listaEquipo);
 	            }
