@@ -46,7 +46,7 @@ class ApiApplicationTests {
 	    public void leerUsuariosAPI() {
 	    	
 	        try{
-        		//setUp();	
+        		setUp();	
 	            CloseableHttpClient httpClient = HttpClients.createDefault();
 	            HttpGet request = new HttpGet("https://ainalua.herokuapp.com/user");
 
@@ -88,7 +88,7 @@ class ApiApplicationTests {
 	    @Test
 	    public void leerPrestamosAPI() {
 	        try{
-	        	//setUp();
+	        	setUp();
 	            CloseableHttpClient httpClient = HttpClients.createDefault();
 	            HttpGet request = new HttpGet("https://ainalua.herokuapp.com/prestamo");
 
@@ -127,7 +127,7 @@ class ApiApplicationTests {
 	    public void leerEquipoAPI() {
 	    	
 	        try{
-	        	//setUp();
+	        	setUp();
 	            CloseableHttpClient httpClient = HttpClients.createDefault();
 	            HttpGet request = new HttpGet("https://ainalua.herokuapp.com/equipo");
 
@@ -163,13 +163,13 @@ class ApiApplicationTests {
 	    }
 
 
-	    @Test
+	   /* @Test
 	    public void guardarUsuarioAPI(){
-	    	/*try {
+	    	try {
 				setUp();
 			} catch (Exception e1) {
 				e1.printStackTrace();
-			}*/
+			}
 	        Usuario u = new Usuario(77,"pepe","midep","124","aaa@gmail.com","madrid");
 	        listaUsuarios.add(u);
 
@@ -209,7 +209,7 @@ class ApiApplicationTests {
 
 
 	        leerUsuariosAPI();
-	    }
+	    }*/
 
 
 	    private static void leerJSON(String leerJSON) {
