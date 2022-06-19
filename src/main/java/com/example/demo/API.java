@@ -27,17 +27,22 @@ public class API {
     private static ArrayList<Prestamo> mListaPrestamos = new ArrayList<Prestamo>();
     private static ArrayList<Equipo> mListaEquipos = new ArrayList<Equipo>();
 
-    @GetMapping("/load")
-    public String load(){
-    	 leerJSON("Usuario.json");
-         leerJSONEquipo("Equipo.json");
-         leerJSONPrestamo("Prestamo.json");
-        return "load ok";
+    public void load(){
+    	if(mListaUsuarios.size() == 0) {
+    		leerJSON("Usuario.json");
+    	}
+    	if(mListaEquipos.size() == 0) {
+    		leerJSONEquipo("Equipo.json");
+    	}
+    	if(mListaPrestamos.size() == 0) {
+    		leerJSONPrestamo("Prestamo.json");
+    	}
     }
     
     
     @GetMapping("/user/{id}")
     public String getUserById(@PathVariable int id){
+    	load();
         Gson gson = new Gson();
         for (int i = 0; i < mListaUsuarios.size(); i++) {
             if(mListaUsuarios.get(i).getId() == id){
@@ -49,23 +54,27 @@ public class API {
 
     @GetMapping("/user")
     public String getUsers(){
+    	load();
         Gson gson = new Gson();
         return gson.toJson(mListaUsuarios);
     }
 
     @GetMapping("/prestamo")
     public String getPrestamo(){
+    	load();
         Gson gson = new Gson();
         return gson.toJson(mListaPrestamos);
     }
     @GetMapping("/equipo")
     public String getEquipo(){
+    	load();
         Gson gson = new Gson();
         return gson.toJson(mListaEquipos);
     }
 
     @PostMapping("/user")
     public String saveUser(@RequestBody Usuario user){
+    	load();
         Gson gson = new Gson();
         if(user != null){
             mListaUsuarios.add(user);
@@ -79,6 +88,7 @@ public class API {
 
     @PostMapping("/prestamo")
     public String savePrestamo(@RequestBody Prestamo prestamo){
+    	load();
         Gson gson = new Gson();
         if(prestamo != null){
             mListaPrestamos.add(prestamo);
@@ -92,6 +102,7 @@ public class API {
 
     @PutMapping("/user")
     public String updateUser(@RequestBody Usuario user){
+    	load();
         Gson gson = new Gson();
         if(user != null){
             for (int i = 0; i < mListaUsuarios.size(); i++) {
@@ -109,6 +120,7 @@ public class API {
 
     @PutMapping("/prestamo")
     public String updatePrestamo(@RequestBody Prestamo prestamo){
+    	load();
         Gson gson = new Gson();
         if(prestamo != null){
             for (int i = 0; i < mListaPrestamos.size(); i++) {
@@ -126,6 +138,7 @@ public class API {
 
     @DeleteMapping("/user/{id}")
     public String deleteUser(@PathVariable int id){
+    	load();
         Gson gson = new Gson();
         for (int i = 0; i < mListaUsuarios.size(); i++) {
             if(id == mListaUsuarios.get(i).getId()){
