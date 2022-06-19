@@ -167,7 +167,7 @@ class ApiApplicationTests {
 	    }
 
 
-	   /* @Test
+	    @Test
 	    public void guardarUsuarioAPI(){
 	    	try {
 				setUp();
@@ -213,7 +213,7 @@ class ApiApplicationTests {
 
 
 	        leerUsuariosAPI();
-	    }*/
+	    }
 
 
 	    private static void leerJSON(String leerJSON) {
